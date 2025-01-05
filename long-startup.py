@@ -14,17 +14,17 @@ if __name__ == "__main__":
 
 @app.route('/business', methods=['GET'])
 def business():
-    with lock:
-        initialized = app.config.get('initialized')
+    with lock: # This ensures this block of code runs serialized, and not in parallel, if it gets called 2 times or more simultaneously.
+        initialized = app.config.get('initialized') # Are we already initialized?
         if not initialized:
-            time.sleep(60) # Some long initialize setting...
-            app.config.update(initialized=True) # Then mark it as initialized. Because it only happens the first time.
+            time.sleep(120) # Some long initialization procedure...
+            app.config.update(initialized=True) # Then mark it as initialized. So this does not take place next time this function runs.
     return "business request completed", 200
 
 @app.route('/crash', methods=['GET'])
 def crash():
-    with lock:
-        os._exit(1)
+    with lock: # This ensures this block of code runs serialized, and not in parallel, if it gets called 2 times or more simultaneously.
+        os._exit(1) # Fakes a crash, by exiting the app with a non-zero return code. 
     return "lala", 501
 
 
