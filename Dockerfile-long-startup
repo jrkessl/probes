@@ -1,0 +1,7 @@
+FROM python
+COPY long-startup.py . 
+COPY requirements.txt . 
+RUN python -m pip install --upgrade pip
+RUN python -m pip install -r requirements.txt
+EXPOSE 8080
+ENTRYPOINT [ "flask", "--app", "long-startup.py", "run", "-p", "8080" ]
