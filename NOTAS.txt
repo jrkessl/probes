@@ -1,0 +1,43 @@
+liveness:
+    Indicates whether the container is running.
+    failure > kills 
+
+readiness:
+    Indicates whether the container is ready to respond to requests.
+    failure > no more traffic 
+
+startup:
+    Indicates whether the application within the container is started.
+    failure > kills 
+
+all:
+    default: success     
+
+se o seu pod crasha sozinho sempre que tem problemas > não precisa de liveness. 
+
+"A common pattern for liveness probes is to use the same low-cost HTTP endpoint as for readiness probes, but with a higher failureThreshold. This ensures that the pod is observed as not-ready for some period of time before it is hard killed."
+
+If you'd like to start sending traffic to a Pod only when a probe succeeds, specify a readiness probe. In this case, the readiness probe might be the same as the liveness probe, but the existence of the readiness probe in the spec means that the Pod will start without receiving any traffic and only start receiving traffic after the probe starts succeeding.
+    significa que: 
+        com readiness probe: só recebe tráfego depois que a readiness probe passar 
+        sem readiness probe: recebe tráfego assim que o pod estiver vivo 
+            talvez somente a readiness probe deveria testar se o banco de dados está up?
+
+a startup probe permite que lancemos um pod sem necessariamente esperar um minuto. Testar essa hipótese.             
+
+
+
+"launch failed: KVM support is not enabled on this machine.
+Please ensure the following:
+1. The system's CPU supports virtualization.
+2. Virtualization is enabled in the system BIOS.
+3. The KVM kernel modules are loaded."
+
+
+If you get an error like "launch failed: KVM support is not enabled on this machine." it's because virtualization is often disabled from the factory in a new laptop or motherboard. After enabling it once for your computer, you don't need to worry about it any more. Google "how to enable virtualization" and your computer model / motherboard model for instructions on enabling virtualization.
+
+----
+rodando o programa python:
+    python3 -m venv venv
+    source venv/bin/activate
+    python -m pip install -r requirements.txt

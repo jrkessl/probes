@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: simplest
+  name: simplest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simplest
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: simplest
+    spec:
+      containers:
+      - image: jrkessl/probes:simplest
+        name: probes
+        resources: {}
