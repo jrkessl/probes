@@ -1,25 +1,24 @@
 import os
-import sys
-import json
+import random 
 from flask import Flask
-import time
-from threading import Lock
 
 app = Flask(__name__)
-lock = Lock()
 
 if __name__ == "__main__":
-    print(f'Hello world')
-    # time.sleep(10)
-    app.run(debug=True, host="0.0.0.0")
+    app.run()
 
+# This is the code that runs when you call the prefix "/business"
 @app.route('/business', methods=['GET'])
 def business():
-    return "business request completed", 200
+    random_number = random.randint(0, 9)
+    if random_number == 0:
+        os._exit(1)
+    else:
+        return "business request completed", 200 # It does not do anything. Just returns immediately.
 
-@app.route('/crash', methods=['GET'])
-def crash():
-    os._exit(1)
-    return "lala", 501
+# @app.route('/crash', methods=['GET'])
+# def crash():
+#     os._exit(1)
+#     return "lala", 501
 
 
