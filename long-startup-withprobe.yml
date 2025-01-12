@@ -33,7 +33,7 @@ spec:
             path: /business
             port: 8080
           periodSeconds: 10
-          timeoutSeconds: 130
+          timeoutSeconds: 1
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

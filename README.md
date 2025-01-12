@@ -1,4 +1,9 @@
 # Notes
+
+Como montar o volume no highlander:
+multipass <source> <target>
+multipass mount /home/juliano/Documents/github/probes highlander:/home/ubuntu/probes
+
 ## Simplest
 ### Run the app: 
 ```
@@ -21,6 +26,34 @@ docker push jrkessl/probes:simplest
 ```
 kubectl create deployment simplest --image jrkessl/probes:simplest
 ```
+
+
+
+
+## long-startup
+### Run the app: 
+```
+python3 -m venv venv0 # (just once)
+source venv0/bin/activate
+python -m pip install -r requirements.txt
+flask --debug --app long-startup.py run -p 8080
+```
+### Test the app:
+```
+curl localhost:8080/sleep
+curl localhost:8080/business
+```
+### Build app image:
+```
+docker build . -f Dockerfile-long-startup -t jrkessl/probes:long-startup 
+docker push jrkessl/probes:long-startup
+```
+### Deploy app in cluster:
+```
+kubectl create deployment long-startup --image jrkessl/probes:long-startup
+```
+
+
 
 
 # Rinha 2.0, exercício do Juliano

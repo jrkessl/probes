@@ -17,7 +17,7 @@ def business():
     with lock: # This ensures this block of code runs serialized, and not in parallel, if it gets called 2 times or more simultaneously.
         initialized = app.config.get('initialized') # Are we already initialized?
         if not initialized:
-            time.sleep(120) # Some long initialization procedure...
+            time.sleep(10) # Some long initialization procedure...
             app.config.update(initialized=True) # Then mark it as initialized. So this does not take place next time this function runs.
     return "business request completed", 200
 

@@ -10,6 +10,7 @@ lock = Lock()
 
 if __name__ == "__main__":
     print(f'Hello world')
+    # time.sleep(10)
     app.run(debug=True, host="0.0.0.0")
 
 @app.route('/business', methods=['GET'])
