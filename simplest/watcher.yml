@@ -1,14 +1,25 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
     app: simplest-watcher
   name: simplest-watcher
 spec:
-  containers:
-  - image: ubuntu
-    name: probes
-    command: ["/bin/bash"]
-    args: ["-c", "echo \"hello world\""]
-    resources: {}
-  terminationGracePeriodSeconds: 0
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simplest-watcher
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: simplest-watcher
+    spec:
+      containers:
+      - image: ubuntu
+        name: probes
+        command: ["/bin/bash"]
+        args: ["-c", "echo \"hello world\""]
+        resources: {}
+      terminationGracePeriodSeconds: 0
