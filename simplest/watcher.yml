@@ -16,6 +16,7 @@ spec:
       labels:
         app: simplest-watcher
     spec:
+      restartPolicy: Always 
       containers:
       - image: ubuntu
         name: probes

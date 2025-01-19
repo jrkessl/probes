@@ -20,3 +20,17 @@ spec:
       - image: jrkessl/probes:simplest
         name: probes
         resources: {}
+      terminationGracePeriodSeconds: 0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simplest
+spec:
+  selector:
+    app: simplest
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP
