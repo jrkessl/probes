@@ -17,9 +17,11 @@ spec:
         app: simplest
     spec:
       containers:
-      - image: jrkessl/probes:simplest
+      - image: jrkessl/probes:simplest_v01
         name: probes
         resources: {}
+        ports:
+        - containerPort: 8080
       terminationGracePeriodSeconds: 0
 ---
 apiVersion: v1

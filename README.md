@@ -1,7 +1,7 @@
 # Notes
 
 Como montar o volume no highlander:
-multipass <source> <target>
+multipass mount <source folder> <target VM>:<target folder>
 multipass mount /home/juliano/Documents/github/probes highlander:/home/ubuntu/probes
 
 ## Simplest
@@ -119,14 +119,7 @@ Não é necessário; a app vai popular automaticamente na primeira execução us
 Aqui é só anotações úteis livres, e não uma documentação estruturada.
 
 
-horários?
-outra vaga? 
-  release eng > 1 pm to 10 pm 
-  sre >         1 pm to 10 pm 
-quntas pessoas?
-  400 > 
-  70  > 
-  amanda > desde 2022 
 
-
-
+PAROU EM: 
+  serviço do pod "simplest" não recebe conexões quando está no kubernetes. 
+    problema parecer ser na imagem. Pois quando é a imagem do nginx, ela funciona. 
