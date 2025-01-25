@@ -18,9 +18,32 @@ spec:
     spec:
       restartPolicy: Always 
       containers:
-      - image: ubuntu
-        name: probes
-        command: ["/bin/bash"]
-        args: ["-c", "echo \"hello world\""]
-        resources: {}
+        - image: ubuntu
+          name: probes
+          command: ["/bin/bash"]
+          args: ["-c", "echo \"hello world\""]
+          # command: ["/bin/bash"]
+          # args: ["ls -la /home/"]
+          resources: {}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /home/
+      
       terminationGracePeriodSeconds: 0
+      volumes:
+        - name: config-volume
+          configMap:
+            name: configmap-script
+
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-script
+data:
+  myscript.sh: |-
+    #!/bin/bash
+    echo "hello world from the script"
+    exit 0 
