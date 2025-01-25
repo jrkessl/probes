@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: ubuntu-helper
+    tier: app
+    notes: "I.am.a.helper.pod.for.troubleshooting.Feel.free.to.delete.me"
+  name: ubuntu-helper
+spec:
+  containers:
+  - image: jrkessl/ubuntu:latest
+    name: ubuntu-helper
+    imagePullPolicy: Always
+    resources:
+      limits:
+        cpu: 250m
+        memory: 200Mi
+      requests:
+        cpu: 250m
+        memory: 200Mi
+    command: ["/bin/sh", "-c", "sleep 28800"] # 28800 = 8 hours
+    securityContext:
+      runAsUser: 1000
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+          - "ALL"    
+  terminationGracePeriodSeconds: 0
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
