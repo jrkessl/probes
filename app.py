@@ -13,9 +13,10 @@ globalerror = False
 counter2 = 10
 ready = False 
 readycounter = os.getenv("READYCOUNTER", "10")
+slowquerycounter = os.getenv("SLOWQUERYCOUNTER", "60")
+slowquerygrace = os.getenv("SLOWQUERYGRACE", "3")
 
-# This is the code that runs when you call the prefix "/safe"
-@app.route('/safe', methods=['GET'])
+@app.route('/safe', methods=['GET']) # This just answers with code 200 
 def safe():
     global ready
     global readycounter
@@ -26,9 +27,9 @@ def safe():
     if globalerror == True: 
         return f"App is \"broken down\" meaning the server process still runs, but the app only returns error codes.", 502
     else:
-        return "Safe request completed", 200 # It does not do anything. Just returns immediately.
+        return "Safe request completed", 200 
 
-@app.route('/crash_tenth', methods=['GET'])
+@app.route('/crash_tenth', methods=['GET']) # This returns OK most of the time, because it causes the server to crash every 10th request. 
 def crash_tenth():
     global ready
     global readycounter
@@ -44,9 +45,9 @@ def crash_tenth():
         if globalerror == True: 
             return f"App is \"broken down\" meaning the server process still runs, but the app only returns error codes.", 502
         else:
-            return f"Crashing in {counter1}", 200 # It returns OK most of the time, because it causes the server to crash every 10th request. 
+            return f"Crashing in {counter1}", 200 
 
-@app.route('/break_tenth', methods=['GET'])
+@app.route('/break_tenth', methods=['GET']) # This, every 10 requests, will cause the server process to enter an invalid state, where it only responds with errors until restarted. 
 def break_tenth():
     global ready
     global readycounter
@@ -64,7 +65,7 @@ def break_tenth():
     else:
         return f"App will \"break down\" in {counter2}", 200
 
-@app.route('/error', methods=['GET'])
+@app.route('/error', methods=['GET']) # This always responds with error codes. Does not affect the server process. 
 def error():
     global ready
     global readycounter
@@ -72,4 +73,26 @@ def error():
         time.sleep(int(readycounter))
         ready = True
 
-    return "Here is your error!", 501 # Always returns an error. But the server process is unaffected. 
+    return "Here is your error!", 501 
+
+@app.route('/slowquery', methods=['GET']) # This most of the times returns quickly, but sometimes it blocks, holding down the server for a long while. 
+def slowquery():
+    global ready
+    global readycounter
+    if not ready:
+        time.sleep(int(readycounter))
+        ready = True
+    
+    global slowquerycounter
+    global slowquerygrace
+    slowquerycounter_i = int(slowquerycounter)
+    slowquerygrace_i = int(slowquerygrace)
+    if slowquerygrace_i > 0: # On the first 3 calls, never slow down. 
+        slowquerygrace_i = slowquerygrace_i - 1
+    else:
+        random_number = random.randint(0, 2) # Have a chance of 1 in 3 of this function taking a lot of time to return. 
+        print (f"random_number = {random_number}")
+        if random_number == 2:
+            time.sleep(int(slowquerycounter_i))
+            return "Slow query call finished. This time it was slow.", 200
+    return "Slow query call finished (quickly).", 200
