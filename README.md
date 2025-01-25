@@ -10,7 +10,7 @@ multipass mount /home/juliano/Documents/github/probes highlander:/home/ubuntu/pr
 python3 -m venv venv0 # (just once)
 source venv0/bin/activate
 python -m pip install -r requirements.txt
-flask --debug --app simplest.py run -p 8080
+flask --debug --app simplest/simplest.py run -p 8080
 ```
 ### Test the app:
 ```
@@ -121,5 +121,7 @@ Aqui é só anotações úteis livres, e não uma documentação estruturada.
 
 
 PAROU EM: 
-  serviço do pod "simplest" não recebe conexões quando está no kubernetes. 
-    problema parecer ser na imagem. Pois quando é a imagem do nginx, ela funciona. 
+  "simplest" já tem um serviço ClusterIP que funciona. 
+  continuar desenvolvendo o watcher para o simplest. 
+
+  watcher do simplest já funciona. Mas o simplest, que crasha aleatoriamente a cada 10x, nem sempre volta com sucesso. Pq? Investigar. 
