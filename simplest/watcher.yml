@@ -1,49 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  labels:
-    app: simplest-watcher
   name: simplest-watcher
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: simplest-watcher
-  strategy: {}
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: simplest-watcher
-    spec:
-      restartPolicy: Always 
-      containers:
-        - image: ubuntu
-          name: probes
-          command: ["/bin/bash"]
-          args: ["-c", "echo \"hello world\""]
-          # command: ["/bin/bash"]
-          # args: ["ls -la /home/"]
-          resources: {}
-          volumeMounts:
-            - name: config-volume
-              mountPath: /home/
-      
-      terminationGracePeriodSeconds: 0
-      volumes:
-        - name: config-volume
-          configMap:
-            name: configmap-script
+  containers:
+    - image: ubuntu
+      name: probes
+      # command: ["/bin/bash"]
+      # args: ["-c", "echo \"hello world with sleep\"", ";", "sleep", "10"]
+      command: ["/bin/bash"]
+      args: ["-c", "ls -la /home/"]
+      # command: ["/bin/sh", "-c", "sleep 28800"] # 28800 = 8 hours
+      resources: {}
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 0
 
 
----
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: configmap-script
-data:
-  myscript.sh: |-
-    #!/bin/bash
-    echo "hello world from the script"
-    exit 0 
