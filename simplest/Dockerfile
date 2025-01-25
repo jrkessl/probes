@@ -10,4 +10,4 @@ EXPOSE 8080
 ENTRYPOINT [ "flask", "--app", "simplest.py", "run", "--host", "0.0.0.0", "-p", "8080" ]
 
 
-# tag="simplest_v02" && docker build . -f simplest/Dockerfile -t jrkessl/probes:${tag} && docker push jrkessl/probes:${tag}
+# tag="simplest_v05" && docker build . -f simplest/Dockerfile -t jrkessl/probes:${tag} && docker push jrkessl/probes:${tag}
