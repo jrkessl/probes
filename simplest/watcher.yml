@@ -4,16 +4,28 @@ metadata:
   name: simplest-watcher
 spec:
   containers:
-    - image: ubuntu
+    - image: jrkessl/ubuntu
       name: probes
-      # command: ["/bin/bash"]
-      # args: ["-c", "echo \"hello world with sleep\"", ";", "sleep", "10"]
-      command: ["/bin/bash"]
-      args: ["-c", "ls -la /home/"]
-      # command: ["/bin/sh", "-c", "sleep 28800"] # 28800 = 8 hours
+      command: ['/bin/sh', '-c', ' echo "hello kube" && cp /home/myscript.sh /tmp && chmod 777 /tmp/myscript.sh && /tmp/myscript.sh'] 
       resources: {}
+      volumeMounts:
+        - name: config-volume
+          mountPath: /home/
+  volumes:
+    - name: config-volume
+      configMap:
+        name: configmap-script
   restartPolicy: Never
   terminationGracePeriodSeconds: 0
-
-
-
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-script
+data:
+  myscript.sh: |-
+    #!/bin/bash
+    while true; do
+      curl -sS -w "%{http_code}" simplest:8080/business
+      sleep 1
+    done
