@@ -1,13 +1,10 @@
 FROM python
-COPY simplest/simplest.py . 
+COPY app.py . 
 COPY requirements.txt . 
 RUN python -m pip install --upgrade pip
 RUN python -m pip install -r requirements.txt
 EXPOSE 8080
-# ENTRYPOINT gunicorn --bind 0.0.0.0:8001 -w "$workers" wsgi:app
-# ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:8001", "-w", "$workers", "wsgi:app" ] 
-# ENTRYPOINT [ "flask", "--app", "simplest.py", "run", "-p", "8080" ] # this way it only takes connections from localhost.
-ENTRYPOINT [ "flask", "--app", "simplest.py", "run", "--host", "0.0.0.0", "-p", "8080" ]
+ENTRYPOINT [ "flask", "--app", "app.py", "run", "--host", "0.0.0.0", "-p", "8080" ]
 
 
-# tag="simplest_v05" && docker build . -f simplest/Dockerfile -t jrkessl/probes:${tag} && docker push jrkessl/probes:${tag}
+# tag="simplest_v07" && docker build . -f Dockerfile -t jrkessl/probes:${tag} && docker push jrkessl/probes:${tag}

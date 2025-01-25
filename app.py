@@ -1,6 +1,7 @@
 import os
 import random 
 from flask import Flask
+import time
 
 app = Flask(__name__)
 
@@ -10,10 +11,18 @@ if __name__ == "__main__":
 counter1 = 10
 globalerror = False
 counter2 = 10
+ready = False 
+readycounter = os.getenv("READYCOUNTER", "10")
 
 # This is the code that runs when you call the prefix "/safe"
 @app.route('/safe', methods=['GET'])
 def safe():
+    global ready
+    global readycounter
+    if not ready:
+        time.sleep(int(readycounter))
+        ready = True
+        
     if globalerror == True: 
         return f"App is \"broken down\" meaning the server process still runs, but the app only returns error codes.", 502
     else:
@@ -21,6 +30,12 @@ def safe():
 
 @app.route('/crash_tenth', methods=['GET'])
 def crash_tenth():
+    global ready
+    global readycounter
+    if not ready:
+        time.sleep(int(readycounter))
+        ready = True
+
     global counter1
     counter1 = counter1 - 1 
     if counter1 < 1:
@@ -33,6 +48,12 @@ def crash_tenth():
 
 @app.route('/break_tenth', methods=['GET'])
 def break_tenth():
+    global ready
+    global readycounter
+    if not ready:
+        time.sleep(int(readycounter))
+        ready = True
+
     global counter2
     global globalerror
     counter2 = counter2 - 1 
@@ -45,4 +66,10 @@ def break_tenth():
 
 @app.route('/error', methods=['GET'])
 def error():
+    global ready
+    global readycounter
+    if not ready:
+        time.sleep(int(readycounter))
+        ready = True
+
     return "Here is your error!", 501 # Always returns an error. But the server process is unaffected. 

@@ -120,6 +120,12 @@ Aqui é só anotações úteis livres, e não uma documentação estruturada.
 
 
 
+
+python3 -m venv venv0 # (just once)
+source venv0/bin/activate
+python -m pip install -r requirements.txt
+flask --debug --app app.py run -p 8080
+
 PAROU EM: 
   "simplest" já tem um serviço ClusterIP que funciona. 
   continuar desenvolvendo o watcher para o simplest. 
