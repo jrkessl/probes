@@ -87,12 +87,21 @@ def slowquery():
     global slowquerygrace
     slowquerycounter_i = int(slowquerycounter)
     slowquerygrace_i = int(slowquerygrace)
-    if slowquerygrace_i > 0: # On the first 3 calls, never slow down. 
-        slowquerygrace_i = slowquerygrace_i - 1
+    
+    random_number = random.randint(0, 2) # Have a chance of 1 in 3 of this function taking a lot of time to return. 
+    print (f"random_number = {random_number}")
+    if random_number == 2:
+        return f"Slow query call finished (quickly) TWO.{random_number}", 200
     else:
-        random_number = random.randint(0, 2) # Have a chance of 1 in 3 of this function taking a lot of time to return. 
-        print (f"random_number = {random_number}")
-        if random_number == 2:
-            time.sleep(int(slowquerycounter_i))
-            return "Slow query call finished. This time it was slow.", 200
-    return "Slow query call finished (quickly).", 200
+        time.sleep(3)
+        return f"Slow query call finished (quickly) NOT TWO.{random_number}", 200
+
+    # if slowquerygrace_i > 0: # On the first 3 calls, never slow down. 
+    #     slowquerygrace_i = slowquerygrace_i - 1
+    # else:
+    #     random_number = random.randint(0, 2) # Have a chance of 1 in 3 of this function taking a lot of time to return. 
+    #     print (f"random_number = {random_number}")
+    #     if random_number == 2:
+    #         time.sleep(int(slowquerycounter_i))
+    #         return "Slow query call finished. This time it was slow.", 200
+    # return "Slow query call finished (quickly).", 200
