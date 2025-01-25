@@ -140,6 +140,7 @@ Roteiro:
         04
     5. agora uma app que às vezes demora um tempão
         05-slowquery
+    6. então criamos a readiness probe e tudo fica bem. 
 
 PAROU EM: 
   "simplest" deployment acho que já está finalizado.
