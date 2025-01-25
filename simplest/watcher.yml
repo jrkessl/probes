@@ -26,6 +26,7 @@ data:
   myscript.sh: |-
     #!/bin/bash
     while true; do
-      curl -sS -w "%{http_code}" simplest:8080/business
-      sleep 1
+      # echo -e "\nquerying simplest:8080/business..."
+      curl --max-time 5 -sS -w "%{http_code}" simplest:8080/business
+      sleep 3
     done
