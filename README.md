@@ -127,7 +127,5 @@ python -m pip install -r requirements.txt
 flask --debug --app app.py run -p 8080
 
 PAROU EM: 
-  "simplest" já tem um serviço ClusterIP que funciona. 
-  continuar desenvolvendo o watcher para o simplest. 
-
-  watcher do simplest já funciona. Mas o simplest, que crasha aleatoriamente a cada 10x, nem sempre volta com sucesso. Pq? Investigar. 
+  "simplest" deployment acho que já está finalizado.
+  dei fork nele no "long-startup". Mas acho que, pra ficar melhor, ele precisa ter um tempo de boot aleatório, para às vezes dar timeout no startup, às vezes não. Com uma chance de 30% de dar boot com sucesso. 
