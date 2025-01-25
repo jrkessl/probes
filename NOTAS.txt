@@ -43,7 +43,3 @@ rodando o programa python:
     python -m pip install -r requirements.txt
 
 
-Roteiro:
-    1. app muito simples. Se ela crasha, o cluster reinicia. 
-    2. app que entra em um estado inválido. 
-        solução: um path só pra testar. No meu caso, testar a variável. 

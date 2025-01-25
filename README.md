@@ -126,6 +126,21 @@ source venv0/bin/activate
 python -m pip install -r requirements.txt
 flask --debug --app app.py run -p 8080
 
+Roteiro:
+    1. app muito simples. Se ela crasha, o cluster reinicia. (01)
+    2. app que entra em um estado inválido. 
+        solução: um path só pra testar. No meu caso, testar a variável. 
+        adicionar liveness probe 
+        (02)
+    3. app onde o tempo de startup é maior do que o intervalo da liveness 
+        adicionar readiness
+        03
+    4. a mesma do anterior, mas agora com a correção
+        correção: adicionar uma startup probe 
+        04
+    5. agora uma app que às vezes demora um tempão
+        05-slowquery
+
 PAROU EM: 
   "simplest" deployment acho que já está finalizado.
   dei fork nele no "long-startup". Mas acho que, pra ficar melhor, ele precisa ter um tempo de boot aleatório, para às vezes dar timeout no startup, às vezes não. Com uma chance de 30% de dar boot com sucesso. 

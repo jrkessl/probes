@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: slowquery
+  name: slowquery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slowquery
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: slowquery
+    spec:
+      containers:
+      - image: jrkessl/probes:v10
+        name: probes
+        resources: {}
+        ports:
+        - containerPort: 8080
+        env: 
+          - name: READYCOUNTER
+            value: "20"
+        livenessProbe:
+          httpGet:
+            path: /safe
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /safe
+            port: 8080
+          failureThreshold: 30
+          periodSeconds: 3
+      terminationGracePeriodSeconds: 0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: slowquery
+spec:
+  selector:
+    app: slowquery
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP

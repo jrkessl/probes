@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: simplest
-  name: simplest
+    app: liveness
+  name: liveness
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: simplest
+      app: liveness
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: simplest
+        app: liveness
     spec:
       containers:
-      - image: jrkessl/probes:simplest_v07
+      - image: jrkessl/probes:v07
         name: probes
         resources: {}
         ports:
@@ -25,15 +25,22 @@ spec:
         env: 
           - name: READYCOUNTER
             value: "0"
+        livenessProbe:
+          httpGet:
+            path: /safe
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 1
       terminationGracePeriodSeconds: 0
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: simplest
+  name: liveness
 spec:
   selector:
-    app: simplest
+    app: liveness
   ports:
   - protocol: TCP
     port: 8080

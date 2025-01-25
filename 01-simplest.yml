@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: simplest
+  name: simplest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simplest
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: simplest
+    spec:
+      containers:
+      - image: jrkessl/probes:v07
+        name: probes
+        resources: {}
+        ports:
+        - containerPort: 8080
+        env: 
+          - name: READYCOUNTER
+            value: "0"
+      terminationGracePeriodSeconds: 0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simplest
+spec:
+  selector:
+    app: simplest
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP
