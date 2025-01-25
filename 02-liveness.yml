@@ -17,7 +17,7 @@ spec:
         app: liveness
     spec:
       containers:
-      - image: jrkessl/probes:v07
+      - image: jrkessl/probes:v10
         name: probes
         resources: {}
         ports:
@@ -31,7 +31,7 @@ spec:
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 10
-          failureThreshold: 1
+          failureThreshold: 1            
       terminationGracePeriodSeconds: 0
 ---
 apiVersion: v1
