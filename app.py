@@ -18,8 +18,8 @@ readycounter = os.getenv("READYCOUNTER", "10")
 slowquerycounter = os.getenv("SLOWQUERYCOUNTER", "60")
 slowquerygrace = os.getenv("SLOWQUERYGRACE", "3")
 
-@app.route('/safe', methods=['GET']) # This just answers with code 200 
-def safe():
+@app.route('/main', methods=['GET']) # This just answers with code 200 
+def main():
     with lock: 
         global ready
         global readycounter
@@ -29,9 +29,9 @@ def safe():
         if not ready:
             time.sleep(int(readycounter))
             ready = True
-            return "Application is initialized. Safe request completed", 201 
+            return "Application is initialized. Main request completed", 201 
             
-        return "Safe request completed", 200 
+        return "Main request completed", 200 
 
 @app.route('/crash_tenth', methods=['GET']) # This returns OK most of the time, because it causes the server to crash every 10th request. 
 def crash_tenth():

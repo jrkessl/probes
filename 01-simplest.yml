@@ -17,7 +17,7 @@ spec:
         app: simplest
     spec:
       containers:
-      - image: jrkessl/probes:v10
+      - image: jrkessl/probes:v11
         name: probes
         resources: {}
         ports:
