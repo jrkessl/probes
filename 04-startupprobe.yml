@@ -17,7 +17,7 @@ spec:
         app: startupprobe
     spec:
       containers:
-      - image: jrkessl/probes:v07
+      - image: jrkessl/probes:v11
         name: probes
         resources: {}
         ports:
@@ -27,14 +27,14 @@ spec:
             value: "20"
         livenessProbe:
           httpGet:
-            path: /safe
+            path: /main
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 10
           failureThreshold: 1
         startupProbe:
           httpGet:
-            path: /safe
+            path: /main
             port: 8080
           failureThreshold: 30
           periodSeconds: 3
