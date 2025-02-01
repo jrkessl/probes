@@ -1,7 +1,7 @@
 # Probes
-This code was written to test how probes work, to write [this article explaining about the difference between probes](https://medium.com/@jrkessl/readiness-vs-liveness-probes-what-is-the-difference-and-startup-probes-215560f043e4), and to offer code samples. 
+This code was written to test how Kubernetes Deployment probes work, to write [this article explaining the difference between probes](https://medium.com/@jrkessl/readiness-vs-liveness-probes-what-is-the-difference-and-startup-probes-215560f043e4), and to offer code samples. 
 
-It contains 5 Kubernetes Deployment manifests (files 01 to 05) that all deploy the same app `app.py`, a Python app that responds to HTTP GET requests in some prefixes. Read the [article](https://medium.com/@jrkessl/readiness-vs-liveness-probes-what-is-the-difference-and-startup-probes-215560f043e4), it's all in there. 
+It contains 5 Kubernetes Deployment manifests (files 01 to 05) that all deploy the same app `app.py`, and a Python app that responds to HTTP GET requests in some prefixes. Read the [article](https://medium.com/@jrkessl/readiness-vs-liveness-probes-what-is-the-difference-and-startup-probes-215560f043e4), it's all in there. 
 
 ### Running the code 
 See these instructions if you for any reason wants to run the Python code locally. All but the last command is meant to be run from the project folder.
