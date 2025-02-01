@@ -8,7 +8,7 @@ metadata:
   name: ubuntu-helper
 spec:
   containers:
-  - image: jrkessl/ubuntu:latest
+  - image: jrkessl/ubuntu:probesv01
     name: ubuntu-helper
     imagePullPolicy: Always
     resources:
